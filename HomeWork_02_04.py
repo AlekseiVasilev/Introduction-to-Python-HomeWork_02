@@ -32,18 +32,19 @@ for choice_in_circle in range(1, players+1):
 
 coin_list = [0] * len(players_list)
 
-def removal_player(list, retiring):
-    mod_players_list = []
-    if retiring == 0 or retiring == len(list)-1:
-        del list[retiring_player]
-        # print(list, '=') # Временная строка
-        return list
+def removal_player(search_list, retiring):
+    # mod_players_list = []
+    if retiring == 0 or retiring == len(search_list)-1:
+        del search_list[retiring_player]
+        print(search_list, '=') # Временная строка
+        return search_list
     else:
-        mod_players_list.extend(list[retiring+1:])
-        mod_players_list.extend(list[:retiring])
-        list = mod_players_list
-        # print(list, '-') # Временная строка
-        return list
+        search_list = search_list[retiring + 1:] + search_list[:retiring]
+        # mod_players_list.extend(list[retiring+1:])
+        # mod_players_list.extend(list[:retiring])
+        # list = mod_players_list
+        print(search_list, '-') # Временная строка
+        return search_list
 
 
 while len(players_list) > 1:
@@ -51,27 +52,27 @@ while len(players_list) > 1:
         for choice_in_circle in range(0, len(players_list)):
             if choice_in_circle < (syllables_in_rhyme - 1) - circle_repeats * len(players_list):
                 coin_list[choice_in_circle] += 1
-                # print('Проход - ', circle_repeats + 1, '; Игрок - ', players_list[choice_in_circle], '; Монет у игрока - ', coin_list[choice_in_circle]) # Временная строка
+                print('Проход - ', circle_repeats + 1, '; Игрок - ', players_list[choice_in_circle], '; Монет у игрока - ', coin_list[choice_in_circle]) # Временная строка
             elif choice_in_circle == (syllables_in_rhyme - 1) - circle_repeats * len(players_list):
                 coin_list[choice_in_circle] += 1
                 lost_money = coin_list[choice_in_circle]
                 retiring_player = choice_in_circle
-                # print('Проход - ', circle_repeats + 1, '; Игрок - ', players_list[choice_in_circle], '; Монет у игрока - ', coin_list[choice_in_circle], '; Выбывает игрок № ', players_list[retiring_player]) # Временная строка
+                print('Проход -- ', circle_repeats + 1, '; Игрок - ', players_list[choice_in_circle], '; Монет у игрока - ', coin_list[choice_in_circle], '; Выбывает игрок № ', players_list[retiring_player]) # Временная строка
             else:
                 coin_list[choice_in_circle] += 2
-                # print('Проход - ', circle_repeats + 1, '; Игрок - ', players_list[choice_in_circle], '; Монет у игрока - ', coin_list[choice_in_circle]) # Временная строка
+                print('Проход --- ', circle_repeats + 1, '; Игрок - ', players_list[choice_in_circle], '; Монет у игрока - ', coin_list[choice_in_circle]) # Временная строка
 
-    # print(players_list, syllables_in_rhyme, coin_list) # Временная строка
+    print(players_list, syllables_in_rhyme, coin_list) # Временная строка
 
     players_list = removal_player(players_list, retiring_player)
-    # print('Измененный лист: ',players_list) # Временная строка
+    print('Измененный лист: ',players_list) # Временная строка
 
     if len(coin_list)-1 == retiring_player:
         coin_list[0] += lost_money
-        # print('сработал if ') # Временная строка
+        print('сработал if ') # Временная строка
     else:
         coin_list[retiring_player+1] +=lost_money
-        # print('сработал  else ') # Временная строка
+        print('сработал  else ') # Временная строка
 
     coin_list = removal_player(coin_list, retiring_player)
 
